@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: portfolioapi
+      POSTGRES_USER_FILE: /run/secrets/db_username
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+    ports:
+      - "5432:5432"
+    secrets:
+      - db_username
+      - db_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    secrets:
+      - db_url
+      - db_username
+      - db_password
+
+secrets:
+  db_url:
+    file: ./secrets/db_url
+  db_username:
+    file: ./secrets/db_username
+  db_password:
+    file: ./secrets/db_password
+
+volumes:
+  postgres_data:

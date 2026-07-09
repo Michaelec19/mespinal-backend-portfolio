@@ -74,3 +74,6 @@ Desktop.ini
 .DS_Store
 .AppleDouble
 .LSOverride
+
+## local secrets docker
+secrets/
