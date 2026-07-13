@@ -23,6 +23,9 @@ public class Message {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String subject;
+
     @Column(nullable = false, length = 100)
     private String senderName;
 
