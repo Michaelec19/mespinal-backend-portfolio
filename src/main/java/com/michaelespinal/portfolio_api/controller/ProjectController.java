@@ -33,4 +33,17 @@ public class ProjectController {
         Project updatedProject = projectService.addSkillToProject(projectId, skillId);
         return new ResponseEntity<>(updatedProject, HttpStatus.OK);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Project> updateProject(@PathVariable Long id, @RequestBody Project project) {
+        Project updatedProject = projectService.updateProject(id, project);
+        return new ResponseEntity<>(updatedProject, HttpStatus.OK);
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
+        projectService.deleteProject(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    
 }

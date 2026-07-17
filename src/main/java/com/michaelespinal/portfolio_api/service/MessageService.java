@@ -26,10 +26,21 @@ public class MessageService {
         if (message.getContent() == null || message.getContent().trim().isEmpty()) {
             throw new IllegalArgumentException("The Content cannot be null or empty");
         }
+
+        message.setIsRead(false);
+
         return messageRepository.save(message);
     }
 
     public List<Message> getAllMessages() {
         return messageRepository.findAll();
+    }
+
+    public Message markAsRead(Long id) {
+        Message message = messageRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("El mensaje con ID " + id + " no existe."));
+        
+        message.setIsRead(true);
+        return messageRepository.save(message);
     }
 }
