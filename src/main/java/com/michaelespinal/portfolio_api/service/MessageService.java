@@ -1,10 +1,12 @@
 package com.michaelespinal.portfolio_api.service;
 
-import com.michaelespinal.portfolio_api.model.Message;
-import com.michaelespinal.portfolio_api.repository.MessageRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
+
+import com.michaelespinal.portfolio_api.model.Message;
+import com.michaelespinal.portfolio_api.repository.MessageRepository;
 
 
 @Service
@@ -38,7 +40,7 @@ public class MessageService {
 
     public Message markAsRead(Long id) {
         Message message = messageRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("El mensaje con ID " + id + " no existe."));
+                .orElseThrow(() -> new IllegalArgumentException("The Message with ID " + id + " does not exist."));
         
         message.setIsRead(true);
         return messageRepository.save(message);

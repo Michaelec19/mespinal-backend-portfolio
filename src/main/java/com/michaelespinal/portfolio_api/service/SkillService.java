@@ -31,7 +31,7 @@ public class SkillService {
 
     public void deleteSkill(Long id) {
         Skill skill = skillRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("The skill ID " + id + " don`t exist."));
+                .orElseThrow(() -> new IllegalArgumentException("The skill with ID " + id + " does not exist"));
         skillRepository.delete(skill);
     }
 
