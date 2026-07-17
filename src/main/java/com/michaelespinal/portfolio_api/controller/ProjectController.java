@@ -27,4 +27,10 @@ public class ProjectController {
         List<Project> projects = projectService.getAllProjects();
         return new ResponseEntity<>(projects, HttpStatus.OK);
     }
+
+    @PostMapping("/{projectId}/skills/{skillId}")
+    public ResponseEntity<Project> addSkillToProject(@PathVariable Long projectId, @PathVariable Long skillId) {
+        Project updatedProject = projectService.addSkillToProject(projectId, skillId);
+        return new ResponseEntity<>(updatedProject, HttpStatus.OK);
+    }
 }

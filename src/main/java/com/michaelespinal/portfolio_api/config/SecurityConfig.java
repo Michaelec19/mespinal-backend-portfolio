@@ -23,6 +23,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
+            .httpBasic(httpBasic -> httpBasic.disable())
+            .formLogin(form -> form.disable())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             
             .authorizeHttpRequests(auth -> auth
@@ -31,7 +33,9 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/v1/messages").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/projects").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/skills").permitAll()
-                .anyRequest().authenticated()
+                .requestMatchers(HttpMethod.POST, "/api/v1/projects").authenticated()
+                .requestMatchers(HttpMethod.POST, "/api/v1/projects/**").authenticated()
+                .anyRequest().permitAll()
             );
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

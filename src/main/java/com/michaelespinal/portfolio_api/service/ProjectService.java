@@ -1,7 +1,10 @@
 package com.michaelespinal.portfolio_api.service;
 
 import com.michaelespinal.portfolio_api.model.Project;
+import com.michaelespinal.portfolio_api.model.Skill;
 import com.michaelespinal.portfolio_api.repository.ProjectRepository;
+import com.michaelespinal.portfolio_api.repository.SkillRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -11,6 +14,9 @@ public class ProjectService {
     
     @Autowired
     private ProjectRepository projectRepository;
+
+    @Autowired
+    private SkillRepository skillRepository;
 
     public Project saveProject(Project project) {
         if (project.getTitle() == null || project.getTitle().trim().isEmpty()) {
@@ -26,6 +32,18 @@ public class ProjectService {
 
     public List<Project> getAllProjects() {
         return projectRepository.findAll();
+    }
+
+    public Project addSkillToProject(Long projectId, Long skillId) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new IllegalArgumentException("El proyecto con ID " + projectId + " no existe."));
+
+        Skill skill = skillRepository.findById(skillId)
+                .orElseThrow(() -> new IllegalArgumentException("La habilidad con ID " + skillId + " no existe."));
+
+        project.getSkills().add(skill);
+
+        return projectRepository.save(project);
     }
 }
 
