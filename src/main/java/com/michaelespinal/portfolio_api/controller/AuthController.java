@@ -45,7 +45,7 @@ public class AuthController {
         }
 
         Map<String, String> errorResponse = new HashMap<>();
-        errorResponse.put("error", "Credenciales inválidas");
+        errorResponse.put("error", "Invalid Credentials");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
     }
 }

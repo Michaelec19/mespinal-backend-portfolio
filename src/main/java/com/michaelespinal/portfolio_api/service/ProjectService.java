@@ -36,10 +36,10 @@ public class ProjectService {
 
     public Project addSkillToProject(Long projectId, Long skillId) {
         Project project = projectRepository.findById(projectId)
-                .orElseThrow(() -> new IllegalArgumentException("El proyecto con ID " + projectId + " no existe."));
+                .orElseThrow(() -> new IllegalArgumentException("The Project with ID " + projectId + " does not exist"));
 
         Skill skill = skillRepository.findById(skillId)
-                .orElseThrow(() -> new IllegalArgumentException("La habilidad con ID " + skillId + " no existe."));
+                .orElseThrow(() -> new IllegalArgumentException("The Skill with ID " + skillId + " does not exist"));
 
         project.getSkills().add(skill);
 
@@ -48,7 +48,7 @@ public class ProjectService {
 
     public Project updateProject(Long id, Project updatedProject) {
         Project existingProject = projectRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("The project ID " + id + " don`t exist."));
+                .orElseThrow(() -> new IllegalArgumentException("The project ID " + id + " does not exist."));
 
         if (updatedProject.getTitle() == null || updatedProject.getTitle().trim().isEmpty()) {
             throw new IllegalArgumentException("The title cannot be null or empty");
@@ -67,7 +67,7 @@ public class ProjectService {
 
     public void deleteProject(Long id) {
         Project project = projectRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("The project ID " + id + " don`t exist."));
+                .orElseThrow(() -> new IllegalArgumentException("The project ID " + id + " does not exist."));
         projectRepository.delete(project);
     }
 }
