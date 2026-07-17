@@ -13,7 +13,7 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    @Value("${jwt.secret:mi_clave_super_secreta_para_el_portafolio_2026}")
+    @Value("${jwt.secret}")
     private String secretKey;
 
     public String generateToken(String username) {

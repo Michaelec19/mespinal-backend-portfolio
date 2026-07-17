@@ -45,5 +45,30 @@ public class ProjectService {
 
         return projectRepository.save(project);
     }
+
+    public Project updateProject(Long id, Project updatedProject) {
+        Project existingProject = projectRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("The project ID " + id + " don`t exist."));
+
+        if (updatedProject.getTitle() == null || updatedProject.getTitle().trim().isEmpty()) {
+            throw new IllegalArgumentException("The title cannot be null or empty");
+        }
+        if (updatedProject.getDescription() == null || updatedProject.getDescription().length() < 10) {
+            throw new IllegalArgumentException("The description must be at least 10 characters long");
+        }
+
+        existingProject.setTitle(updatedProject.getTitle());
+        existingProject.setDescription(updatedProject.getDescription());
+        existingProject.setGithubUrl(updatedProject.getGithubUrl());
+        existingProject.setLiveUrl(updatedProject.getLiveUrl());
+
+        return projectRepository.save(existingProject);
+    }
+
+    public void deleteProject(Long id) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("The project ID " + id + " don`t exist."));
+        projectRepository.delete(project);
+    }
 }
 

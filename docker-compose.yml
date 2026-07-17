@@ -21,6 +21,8 @@ services:
       - "8080:8080"
     depends_on:
       - db
+    environment:
+      JWT_SECRET: ${jwt_secret}
     secrets:
       - db_url
       - db_username

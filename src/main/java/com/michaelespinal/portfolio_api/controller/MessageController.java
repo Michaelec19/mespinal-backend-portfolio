@@ -28,4 +28,10 @@ public class MessageController {
         List<Message> messages = messageService.getAllMessages();
         return new ResponseEntity<>(messages, HttpStatus.OK);
     }
+
+    @PatchMapping("/{id}/read")
+    public ResponseEntity<Message> markAsRead(@PathVariable Long id) {
+        Message updatedMessage = messageService.markAsRead(id);
+        return new ResponseEntity<>(updatedMessage, HttpStatus.OK);
+    }
 }

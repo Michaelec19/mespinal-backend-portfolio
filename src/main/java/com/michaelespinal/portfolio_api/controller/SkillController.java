@@ -27,4 +27,10 @@ public class SkillController {
         List<Skill> skills = skillService.getAllSkills();
         return new ResponseEntity<>(skills, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteSkill(@PathVariable Long id) {
+        skillService.deleteSkill(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
